@@ -6,6 +6,7 @@ import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import com.example.ckweather.views.home.HomeScreen
 import com.example.ckweather.views.location.LocationScreen
+import com.example.ckweather.views.setting.SettingScreen
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.NavHost
 
@@ -20,6 +21,9 @@ fun NavGraph(navController: NavHostController) {
         }
         composable(route = Screens.Locations.route){
             LocationScreen(navController)
+        }
+        composable(route = Screens.Settings.route){
+            SettingScreen(navController)
         }
 
     }

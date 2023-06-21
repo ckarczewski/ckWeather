@@ -4,6 +4,7 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.BottomNavigation
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -24,13 +25,7 @@ fun HomeScreen(
     navController: NavHostController
 ){
     Log.d("dupa","dupa2")
-    Box(modifier = Modifier.fillMaxWidth()){
-        Text(
-            text = "Progrnoza Pogody",
-            color = Color.Black,
-            fontSize = 18.sp
-        )
-    }
+
 
     Box(modifier = Modifier.fillMaxWidth()) {
         Row(
@@ -48,16 +43,16 @@ fun HomeScreen(
                     navController.navigate("location")
                 }) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.add_icon),
+                    imageVector = ImageVector.vectorResource(id = R.drawable.baseline_arrow_back_ios_24),
                     contentDescription = null,
                     modifier = Modifier
                         .size(32.dp),
-                    tint = Color(0xFF000000)
+                    tint = Color(0xFFF5F5F5)
                 )
             }
             Text(
                 text = "Progrnoza Pogody",
-                color = Color.Black,
+                color = Color(0xFFF5F5F5),
                 fontSize = 18.sp
             )
             IconButton(
@@ -66,7 +61,7 @@ fun HomeScreen(
                     navController.navigate("setting")
                 }) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.setting),
+                    imageVector = ImageVector.vectorResource(id = R.drawable.baseline_arrow_forward_ios_24),
                     contentDescription = null,
                     modifier = Modifier
                         .size(32.dp),
@@ -74,5 +69,70 @@ fun HomeScreen(
                 )
             }
         }
+    }
+    BottomMenu(navController = navController)
+}
+
+@Composable
+fun BottomMenu(
+    navController: NavHostController
+){
+    Box(modifier = Modifier.fillMaxSize()) {
+        BottomNavigation(
+            modifier = Modifier.align(alignment = Alignment.BottomCenter),
+            backgroundColor = Color(0xFF3F3F3F)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        vertical = 5.dp,
+                        horizontal = 50.dp
+                    ),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                IconButton(
+                    modifier = Modifier
+                    ,onClick = {
+                        navController.navigate("locations")
+                    }) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(32.dp),
+                        tint = Color(0xFFF5F5F5)
+                    )
+                }
+                IconButton(
+                    modifier = Modifier
+                    ,onClick = {
+                        navController.navigate("settings")
+                    }) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.setting),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(32.dp),
+                        tint = Color(0xFFF5F5F5)
+                    )
+                }
+                IconButton(
+                    modifier = Modifier
+                    ,onClick = {
+                        navController.navigate("home")
+                    }) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.baseline_list_24),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(32.dp),
+                        tint = Color(0xFFF5F5F5)
+                    )
+                }
+            }
+        }
+
     }
 }
