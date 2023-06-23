@@ -14,14 +14,18 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.ckweather.R
+import com.example.ckweather.views.location.searchLocation.SearchLocationItem
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LocationScreen(
     navController: NavController
 ){
+    val locationViewModel: LocationViewModel = viewModel()
+    val searchViewModel: SearchViewModel = viewModel()
     Box() {
         IconButton(
             modifier = Modifier.offset(x = 10.dp, y = 10.dp)
@@ -56,6 +60,7 @@ fun LocationScreen(
             )
 
             TextField(
+                modifier = Modifier.padding(vertical = 10.dp),
                 placeholder = {
                     Text(
                         text = "Szukaj nowe miejsce...",
@@ -64,7 +69,7 @@ fun LocationScreen(
                 },
                 colors = TextFieldDefaults.textFieldColors(
                     textColor = Color.White,
-                    backgroundColor = Color(0xFF252525),
+                    backgroundColor = Color(0xFF3F3C3C),
                     focusedIndicatorColor = Color.White,
                     cursorColor = Color.White
                 ),
@@ -72,22 +77,22 @@ fun LocationScreen(
                 onValueChange = {
                     searchText = it
 
-//                    searchVm.clearSearchList()
-//                    searchVm.fetchGeocoding(it.text)
+                    searchViewModel.clearSearchList()
+                    searchViewModel.fetchGeocoding(it.text)
                 },
             )
-//            if(searchText.text == ""){
-//                LocationsLists(
-//                    locationVm = locationVm
-//                )
-//            } else {
-//                SearchLocationsList(
-//                    locationVm,
-//                    clearInputText = {
-//                        searchText = TextFieldValue("")
-//                        keyboardController?.hide()
-//                    })
-//            }
+            if(searchText.text == ""){
+                SearchLocationItem(
+                    locationViewModel = locationViewModel
+                )
+            } else {
+                SearchLocationItem(
+                    locationViewModel,
+                    clearInputText = {
+                        searchText = TextFieldValue("")
+                        keyboardController?.hide()
+                    })
+            }
         }
     }
     Log.d("location screen","dupa2")
