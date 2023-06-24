@@ -1,11 +1,17 @@
 package com.example.ckweather.views.location.searchLocation
 
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.currentCompositionLocalContext
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ckweather.models.geocoding.GeocodingItem
 import com.example.ckweather.views.location.LocationViewModel
@@ -30,6 +36,14 @@ fun SearchLocationLazyColumn(
     clearInputText: (() -> Unit)? = null
 ) {
     if(geocodingList.isNotEmpty()){
+        Box(modifier = Modifier.fillMaxWidth().padding(all = 15.dp
+        )){
+            Text(text = "Wyniki:",
+                fontSize = 24.sp,
+                color = Color(0xFFFFFFFF),
+                textAlign = TextAlign.Right,
+            )
+        }
         LazyColumn(verticalArrangement = Arrangement.spacedBy(20.dp)){
             items(items = geocodingList){
                     item -> SearchLocationRow(geocodingItem = item, locationVm, clearInputText)

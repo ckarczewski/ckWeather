@@ -50,7 +50,7 @@ fun LocationScreen(
             }
 
             Text(
-                text = "Zarządzaj lokacjami",
+                text = "Dodaj nowe miasto",
                 fontSize = 24.sp,
                 color = Color.White,
                 modifier = Modifier
@@ -59,12 +59,13 @@ fun LocationScreen(
                     )
             )
 
-            TextField(
+            OutlinedTextField(
                 modifier = Modifier.padding(vertical = 10.dp),
-                placeholder = {
+                label = {
                     Text(
-                        text = "Szukaj nowe miejsce...",
-                        color = Color.White
+                        text = "Zajdź miasto",
+                        color = Color(0xFFFFFFFF),
+                        fontSize = 16.sp
                     )
                 },
                 colors = TextFieldDefaults.textFieldColors(
@@ -76,7 +77,6 @@ fun LocationScreen(
                 value = searchText,
                 onValueChange = {
                     searchText = it
-
                     searchViewModel.clearSearchList()
                     searchViewModel.fetchGeocoding(it.text)
                 },
