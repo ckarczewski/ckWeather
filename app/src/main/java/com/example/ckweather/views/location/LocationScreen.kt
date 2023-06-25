@@ -96,5 +96,5 @@ fun LocationScreen(
         }
     }
     Log.d("location screen","dupa2")
-
+//TODO: change name from LocationScreen on SearhLocationScreen
 }

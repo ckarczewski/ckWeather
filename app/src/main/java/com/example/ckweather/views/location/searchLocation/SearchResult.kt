@@ -6,13 +6,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.currentCompositionLocalContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ckweather.data.database.weather.WeatherItem
 import com.example.ckweather.models.geocoding.GeocodingItem
 import com.example.ckweather.views.location.LocationViewModel
 import com.example.ckweather.views.location.SearchViewModel
@@ -59,23 +59,24 @@ fun SearchLocationRow(
         locationVm: LocationViewModel,
         clearInputText: (() -> Unit)? = null
     ){
+    val searchViewModel: SearchViewModel = viewModel()
     if(geocodingItem.state == null){
         geocodingItem.state = ""
     }
     LocationRow(
         geocodingItem,
         clearInputText = clearInputText,
-        addNewLocationCallback = { AddNewLocation(geocodingItem, locationVm) })
+        addNewLocationCallback = { searchViewModel.addNewLocation(geocodingItem, locationVm) })
 }
-fun AddNewLocation(
-    geocodingItem: GeocodingItem,
-    locationVm: LocationViewModel,
-    ){
-//    val locationItem = LocationItem(
+//fun addNewLocation(
+//    geocodingItem: GeocodingItem,
+//    locationVm: LocationViewModel,
+//    ){
+//    val locationItem = WeatherItem(
 //        name = geocodingItem.name,
 //        lat = geocodingItem.lat,
 //        lon = geocodingItem.lon,
 //    )
 //
 //    locationVm.insertWeather(locationItem)
-}
+//}

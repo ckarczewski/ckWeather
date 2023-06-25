@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import com.example.ckweather.data.api.GeocodingInterface
+import com.example.ckweather.data.database.weather.WeatherItem
 import com.example.ckweather.models.geocoding.GeocodingItem
 import com.example.ckweather.util.OPENWEATHER_API_KEY
 import com.example.ckweather.util.OPENWEATHER_API_ROOT
@@ -73,11 +74,16 @@ class SearchViewModel (app: Application): AndroidViewModel(app) {
         _geocodingList.update { emptyList() }
     }
 
-//    fun fetchCityFromWeather(text: String) {
-//        val retrofitBuilder = Retrofit.Builder()
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .baseUrl(OPENWEATHER_API_ROOT)
-//            .build()
-//            .create(GeocodingInterface::class.java)
-//    }
+    fun addNewLocation(
+        geocodingItem: GeocodingItem,
+        locationVm: LocationViewModel,
+    ){
+        val locationItem = WeatherItem(
+            name = geocodingItem.name,
+            lat = geocodingItem.lat,
+            lon = geocodingItem.lon,
+        )
+
+        locationVm.insertWeather(locationItem)
+    }
 }

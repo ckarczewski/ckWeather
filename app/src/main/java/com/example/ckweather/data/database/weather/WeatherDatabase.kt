@@ -1,0 +1,25 @@
+package com.example.ckweather.data.database.weather
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+
+@Database(entities = [WeatherItem::class], version = 1)
+abstract class WeatherDatabase: RoomDatabase(){
+    abstract fun WeatherDao(): WeatherDao
+}
+
+object WeatherDB{
+    private var database: WeatherDatabase? = null
+    fun getInstance(context: Context): WeatherDatabase{
+        if(database == null){
+            database = Room.databaseBuilder(
+                context,
+                WeatherDatabase::class.java,
+                "weather_database"
+            ).build()
+        }
+        return database!!
+    }
+}
