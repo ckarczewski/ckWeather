@@ -73,7 +73,7 @@ fun LocationRow(
                     imageVector = addIcon,
                     contentDescription = null,
                     modifier = Modifier
-                        .size(42.dp),
+                        .size(42.dp).padding(4.dp),
                     tint = Color(0xFF696969)
                 )
             }

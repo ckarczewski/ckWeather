@@ -81,11 +81,7 @@ fun LocationScreen(
                     searchViewModel.fetchGeocoding(it.text)
                 },
             )
-            if(searchText.text == ""){
-                SearchLocationItem(
-                    locationViewModel = locationViewModel
-                )
-            } else {
+            if(searchText.text != ""){
                 SearchLocationItem(
                     locationViewModel,
                     clearInputText = {
