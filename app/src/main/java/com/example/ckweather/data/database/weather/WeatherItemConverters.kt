@@ -4,18 +4,18 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class ForecastConverters {
+class WeatherItemConverters {
     @TypeConverter
-    fun fromListForecastToString(value: List<Forecast>): String {
+    fun fromWeatherItemToString(value: WeatherItem): String{
         val gson = Gson()
-        val type = object : TypeToken<List<Forecast>>() {}.type
+        val type = object : TypeToken<WeatherItem>(){}.type
         return gson.toJson(value, type)
     }
 
     @TypeConverter
-    fun fromStringToListForecast(value: String): List<Forecast> {
+    fun fromStringToWeatherItem(value: String): WeatherItem{
         val gson = Gson()
-        val type = object : TypeToken<List<Forecast>>() {}.type
+        val type = object : TypeToken<WeatherItem>(){}.type
         return gson.fromJson(value, type)
     }
 }
