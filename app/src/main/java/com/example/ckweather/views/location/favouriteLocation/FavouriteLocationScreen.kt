@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -56,10 +57,12 @@ fun FavouriteLocationScreen(
                         vertical = 20.dp
                     )
             )
+            Spacer(modifier = Modifier.height(20.dp))
+            Box(modifier = Modifier.padding(horizontal = 15.dp)){
+                FavouritesLazyColumn(locationsList = weathersList.value, deleteEvent = {weather -> locationViewModel.deleteWeather(weather)})
+            }
         }
-        Box(modifier = Modifier.padding(horizontal = 15.dp)){
-            FavouritesLazyColumn(locationsList = weathersList.value, deleteEvent = {weather -> locationViewModel.deleteWeather(weather)})
-        }
+
     }
 }
 
@@ -82,15 +85,20 @@ fun LocationRow(
     deleteEvent: ((WeatherItem) -> Unit)? = null
 ){
     Box(modifier = Modifier
-        .background(color = Color(0xFF2196F3))
         .fillMaxWidth()
-        .height(50.dp)){
-        Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
+        .height(65.dp)){
+        Row(modifier = Modifier.fillMaxSize()
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .padding(horizontal = 10.dp)
+            .background(color = Color(0xFF033761), shape = RoundedCornerShape(20.dp)),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween) {
             if (locationsItem.name !=null){
-                Text(text = locationsItem.name, modifier = Modifier.padding(10.dp), fontSize = 25.sp, color = Color.White)
+                Text(text = locationsItem.name, modifier = Modifier.padding(horizontal = 25.dp, vertical = 5.dp), fontSize = 25.sp, color = Color.White)
             }
 
-            val deleteIcon = ImageVector.vectorResource(id = R.drawable.baseline_add_24)
+            val deleteIcon = ImageVector.vectorResource(id = R.drawable.delete_icon)
             IconButton(onClick = {
                 if (locationsItem != null) {
                     deleteEvent?.invoke(locationsItem)
@@ -100,7 +108,7 @@ fun LocationRow(
                     imageVector = deleteIcon,
                     contentDescription = null,
                     modifier = Modifier
-                        .size(42.dp),
+                        .size(42.dp).padding(horizontal = 4.dp),
                     tint = Color(0xFFDAD6D6)
                 )
             }
