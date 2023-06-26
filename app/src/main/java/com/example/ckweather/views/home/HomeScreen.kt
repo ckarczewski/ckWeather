@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.ckweather.R
 
-@RequiresApi(Build.VERSION_CODES.N)
+//@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun HomeScreen(
     navController: NavHostController
@@ -121,7 +121,7 @@ fun BottomMenu(
                 IconButton(
                     modifier = Modifier
                     ,onClick = {
-                        navController.navigate("home")
+                        navController.navigate("favourite")
                     }) {
                     Icon(
                         imageVector = ImageVector.vectorResource(id = R.drawable.baseline_list_24),

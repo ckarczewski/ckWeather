@@ -16,7 +16,7 @@ import androidx.navigation.NavHostController
 import com.example.ckweather.R
 
 
-@RequiresApi(Build.VERSION_CODES.N)
+//@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun SettingScreen (
     navController: NavHostController

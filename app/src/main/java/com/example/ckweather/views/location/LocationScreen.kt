@@ -51,7 +51,7 @@ fun LocationScreen(
 
             Text(
                 text = "Dodaj nowe miasto",
-                fontSize = 24.sp,
+                fontSize = 20.sp,
                 color = Color.White,
                 modifier = Modifier
                     .padding(

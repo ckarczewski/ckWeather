@@ -20,10 +20,14 @@ class LocationViewModel (app: Application): AndroidViewModel(app) {
     private val context = app.applicationContext
     private val _app = app
 
-    fun insertWeather(locationItem: WeatherItem){
+    fun insertWeather(weatherItem: WeatherItem){
         CoroutineScope(viewModelScope.coroutineContext).launch {
-            weatherRepository.insertAll(listOf(locationItem))
+            weatherRepository.insertAll(listOf(weatherItem))
         }
+    }
+
+    fun deleteWeather(weatherItem: WeatherItem) = CoroutineScope(viewModelScope.coroutineContext).launch{
+        weatherRepository.delete(listOf(weatherItem))
     }
 
     fun getWeather(): Flow<List<WeatherItem>> {

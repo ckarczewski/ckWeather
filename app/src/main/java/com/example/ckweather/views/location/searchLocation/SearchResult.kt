@@ -23,7 +23,7 @@ fun SearchLocationItem(
     clearInputText: (()->Unit)? = null
 ){
     val searchViewModel: SearchViewModel = viewModel()
-    val locationViewModel: LocationViewModel = viewModel()
+//    val locationViewModel: LocationViewModel = viewModel()
     val geocodingList = searchViewModel.geocodingList.collectAsState(initial = emptyList())
     SearchLocationLazyColumn(geocodingList = geocodingList.value, locationViewModel, clearInputText)
 
@@ -68,15 +68,3 @@ fun SearchLocationRow(
         clearInputText = clearInputText,
         addNewLocationCallback = { searchViewModel.addNewLocation(geocodingItem, locationVm) })
 }
-//fun addNewLocation(
-//    geocodingItem: GeocodingItem,
-//    locationVm: LocationViewModel,
-//    ){
-//    val locationItem = WeatherItem(
-//        name = geocodingItem.name,
-//        lat = geocodingItem.lat,
-//        lon = geocodingItem.lon,
-//    )
-//
-//    locationVm.insertWeather(locationItem)
-//}

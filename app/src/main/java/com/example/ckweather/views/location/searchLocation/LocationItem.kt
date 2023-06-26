@@ -59,7 +59,7 @@ fun LocationRow(
                     color = Color.White,
                 )
             }
-            val addIcon = ImageVector.vectorResource(id = R.drawable.add_icon)
+            val addIcon = ImageVector.vectorResource(id = R.drawable.baseline_add_24)
             IconButton(onClick = {
                 if (addNewLocationCallback != null) {
                     addNewLocationCallback(geocodingItem)
@@ -73,7 +73,7 @@ fun LocationRow(
                     imageVector = addIcon,
                     contentDescription = null,
                     modifier = Modifier
-                        .size(32.dp),
+                        .size(42.dp),
                     tint = Color(0xFF696969)
                 )
             }
