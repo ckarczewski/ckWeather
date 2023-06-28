@@ -12,12 +12,11 @@ data class WeatherItem(
     var lat: Double? = null,
     var lon: Double? = null,
     var temp: Double? = null,
+    var feelsLike: Double? = null,
     var pressure: Double? = null,
     var humidity: Double? = null,
     var windSpeed: Double? = null,
-    var windDeg: Double? = null,
     var dt: Double? = null,
-    var timeZone: Double? = null,
     var forecasts: List<Forecast> = emptyList<Forecast>(),
     var weatherID: Int? = null
 )
