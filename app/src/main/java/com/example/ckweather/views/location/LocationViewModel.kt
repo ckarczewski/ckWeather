@@ -43,6 +43,7 @@ class LocationViewModel (app: Application): AndroidViewModel(app) {
     }
 
     fun updateWeather(weatherItem: WeatherItem){
+        Log.d("update weather", "{$weatherItem}")
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(OPENWEATHER_API_ROOT)
@@ -134,16 +135,18 @@ class LocationViewModel (app: Application): AndroidViewModel(app) {
                 val deltaTime = item.dt?.toLong()?.times(1000)?.minus(System.currentTimeMillis())
                     ?.let { abs(it.toLong()) }
                 Log.d("DeltaTime","$deltaTime")
-//                if (deltaTime != null) {
-//                    if( deltaTime > (1000 * 60 * 60)){
-//                        Log.i("Update", "Location ID - ${item.uid}")
-//                        updateLocationItem(item)
-//                        updateLocationForecast(item)
-//                    }
-//                } else{
-//                    updateLocationItem(item)
-//                    updateLocationForecast(item)
-//                }
+//                ----
+                if (deltaTime != null) {
+                    if( deltaTime > (1000 * 60 * 60)){
+                        Log.i("Update", "Location ID - ${item.uid}")
+                        updateWeather(item)
+                        updateForecast(item)
+                    }
+                } else{
+                    updateWeather(item)
+                    updateForecast(item)
+                }
+//                ----
             }
 
         }
