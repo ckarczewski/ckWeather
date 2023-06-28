@@ -64,17 +64,41 @@ fun WeatherWindow(
             }
         }
     }
-    Box(modifier = Modifier.fillMaxWidth().fillMaxHeight()){
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .fillMaxHeight()){
 
         Text(
             text = weatherItem.name,
             textAlign = TextAlign.Center,
             color = Color(0xFFFFFFFF),
             fontSize = 25.sp,
-            modifier = Modifier.fillMaxWidth(1f).padding(vertical = 26.dp, horizontal = 90.dp)
+            modifier = Modifier
+                .fillMaxWidth(1f)
+                .padding(vertical = 26.dp, horizontal = 90.dp)
 
         )
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.fillMaxWidth().padding(top = 80.dp)) {
+            Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,) {
+                Text(text ="Temperatura odczuwalna", color = Color.White, fontSize = 20.sp)
+                Text(text ="${weatherItem.feelsLike}", color = Color.White, fontSize = 20.sp)
+            }
+            Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,) {
+                Text(text ="Ciśnienie", color = Color.White, fontSize = 20.sp)
+                Text(text ="${weatherItem.pressure} hPa", color = Color.White, fontSize = 20.sp)
+            }
+            Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,) {
+                Text(text ="Wilgotność", color = Color.White, fontSize = 20.sp)
+                Text(text ="${weatherItem.humidity} %", color = Color.White, fontSize = 20.sp)
+            }
+            Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,) {
+                Text(text ="Wiatr", color = Color.White, fontSize = 20.sp)
+                Text(text ="${weatherItem.windSpeed} m/s", color = Color.White, fontSize = 20.sp)
+            }
 
         }
     }
