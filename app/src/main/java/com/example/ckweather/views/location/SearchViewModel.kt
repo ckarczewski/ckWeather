@@ -89,8 +89,6 @@ class SearchViewModel (app: Application): AndroidViewModel(app) {
         )
 
         locationVm.insertWeather(locationItem)
-        locationVm.updateWeather(locationItem)
-        locationVm.updateForecast(locationItem)
         Toast.makeText(context, "Dodano nowe miasto", Toast.LENGTH_SHORT).show()
     }
 }
