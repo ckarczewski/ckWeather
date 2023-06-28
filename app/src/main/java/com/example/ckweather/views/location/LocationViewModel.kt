@@ -4,14 +4,26 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.ckweather.data.api.ForecastInterface
+import com.example.ckweather.data.api.WeatherInterface
+import com.example.ckweather.data.database.weather.Forecast
 import com.example.ckweather.data.database.weather.WeatherItem
 import com.example.ckweather.data.database.weather.WeatherRepository
+import com.example.ckweather.models.forecast.ForecastItem
+import com.example.ckweather.models.weather.Weather
+import com.example.ckweather.util.OPENWEATHER_API_KEY
+import com.example.ckweather.util.OPENWEATHER_API_ROOT
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.math.abs
 
 //TODO: change name from LocationViewModel on SearhLocationViewModel
@@ -28,6 +40,88 @@ class LocationViewModel (app: Application): AndroidViewModel(app) {
 
     fun deleteWeather(weatherItem: WeatherItem) = CoroutineScope(viewModelScope.coroutineContext).launch{
         weatherRepository.delete(listOf(weatherItem))
+    }
+
+    fun updateWeather(weatherItem: WeatherItem){
+        val retrofitBuilder = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(OPENWEATHER_API_ROOT)
+            .build()
+            .create(WeatherInterface::class.java)
+        val retrofitItems = weatherItem.lon?.let {lon->
+            weatherItem.lat?.let { lat ->
+                retrofitBuilder.getData(
+                    appid = OPENWEATHER_API_KEY,
+                    lat = lat,
+                    lon = lon
+                )
+            }
+        }
+
+        retrofitItems?.enqueue(object: Callback<Weather>{
+            override fun onResponse(call: Call<Weather>, response: Response<Weather>) {
+                try {
+                    weatherItem.temp = response.body()!!.main.temp
+                    weatherItem.pressure = response.body()!!.main.pressure.toDouble()
+                    weatherItem.humidity = response.body()!!.main.humidity.toDouble()
+                    weatherItem.windSpeed = response.body()!!.wind.speed
+                    weatherItem.feelsLike = response.body()!!.main.feels_like
+                    weatherItem.dt = response.body()!!.dt.toDouble()
+                    weatherItem.weatherID = response.body()!!.weather[0].id
+                    CoroutineScope(viewModelScope.coroutineContext).launch { weatherRepository.update(weatherItem) }
+
+                } catch (e:Exception){
+                    Log.e("Update weather error: ", e.toString())
+                }
+            }
+
+            override fun onFailure(call: Call<Weather>, t: Throwable) {
+                Log.e("Update weather error: ", "Callback fail")
+            }
+        })
+
+    }
+
+    fun updateForecast(weatherItem: WeatherItem){
+        val retrofitBuilder = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(OPENWEATHER_API_ROOT)
+            .build()
+            .create(ForecastInterface::class.java)
+        val retrofitItems = weatherItem.lon?.let {lon->
+            weatherItem.lat?.let { lat ->
+                retrofitBuilder.getData(
+                    appid = OPENWEATHER_API_KEY,
+                    lat = lat,
+                    lon = lon
+                )
+            }
+        }
+        retrofitItems?.enqueue(object: Callback<ForecastItem>{
+            override fun onResponse(call: Call<ForecastItem>, response: Response<ForecastItem>) {
+                try {
+                    val forecastItemList: MutableList<Forecast> = emptyList<Forecast>().toMutableList()
+                    for (i in 0..4){
+                        forecastItemList += Forecast(
+                            response.body()!!.list[i*8].dt.toLong()*1000,
+                            response.body()!!.list[i*8].main.temp,
+                            response.body()!!.list[i*8].weather[0].id
+                        )
+                    }
+                    weatherItem.forecasts = forecastItemList
+                    CoroutineScope(viewModelScope.coroutineContext).launch {
+                        weatherRepository.update(weatherItem)
+                    }
+                } catch (e: Exception){
+                    Log.e("Forecast update error: ", e.toString())
+                }
+            }
+            override fun onFailure(call: Call<ForecastItem>, t: Throwable) {
+
+            }
+
+        })
+
     }
 
     fun getWeather(): Flow<List<WeatherItem>> {
