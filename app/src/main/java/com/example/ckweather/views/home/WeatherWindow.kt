@@ -83,12 +83,23 @@ fun WeatherWindow(
             .padding(top = 80.dp)) {
             Row(modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 10.dp),
+                .padding(horizontal = 10.dp, vertical = 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,) {
-                Text(text ="${weatherItem.temp} K", color = Color.White, fontSize = 55.sp, textAlign = TextAlign.Center)
+                Text(
+                    modifier = Modifier.padding(top = 30.dp),
+                    text ="${weatherItem.temp} K",
+                    color = Color.White, fontSize = 55.sp,
+                    textAlign = TextAlign.Center)
                 Column() {
-                    Text(text ="IKONKA", color = Color.White, fontSize = 20.sp)
-                    Text(text ="PODPIS", color = Color.White, fontSize = 20.sp)
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.clear_sky),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(100.dp).padding(end = 20.dp, top = 5.dp),
+                        tint = Color(0xFFF5F5F5)
+                    )
+                    Text(text ="PODPIS", color = Color.White, fontSize = 20.sp,
+                    modifier = Modifier.padding(vertical = 10.dp))
                 }
             }
             Row(modifier = Modifier
@@ -127,6 +138,7 @@ fun WeatherWindow(
 @Composable
 @Preview
 fun WeatherPagePreview(){
+
     WeatherWindow(
         WeatherItem(
             uid = 0,
