@@ -14,10 +14,7 @@ fun ForecastItem(date: String, icon: ImageVector, temperature: String){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
-            text = date,
-            color = Color.White
-        )
+
         Icon(
             imageVector = icon,
             contentDescription = null,
@@ -25,6 +22,10 @@ fun ForecastItem(date: String, icon: ImageVector, temperature: String){
         )
         Text(
             text = temperature,
+            color = Color.White
+        )
+        Text(
+            text = date,
             color = Color.White
         )
     }

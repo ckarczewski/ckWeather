@@ -1,5 +1,6 @@
 package com.example.ckweather.views.home
 
+import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -130,9 +131,29 @@ fun WeatherWindow(
                 Text(text ="Wiatr", color = Color.White, fontSize = 20.sp)
                 Text(text ="${weatherItem.windSpeed} m/s", color = Color.White, fontSize = 20.sp)
             }
+            Box(modifier = Modifier.align(Alignment.CenterHorizontally)){
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    if(weatherItem.forecasts.isNotEmpty()){
+                        val dateFormat = SimpleDateFormat("dd-MM")
+                        repeat(5){ item ->
+                            val icon = ImageVector.vectorResource(id = settingManager.getWeatherIconID(data.forecasts[item].weatherID))
+                            ForecastItem(
+                                date = dateFormat.format(weatherItem.forecasts[item].time),
+                                icon = icon,
+                                temperature = settingManager.kelvinToSelectedType(data.forecasts[item].temp).roundToInt().toString() + "" + settingManager.getTemperatureSymbol()
+                            )
+                        }
+                    }
+                }
+            }
 
         }
     }
+
 }
 
 @Composable
