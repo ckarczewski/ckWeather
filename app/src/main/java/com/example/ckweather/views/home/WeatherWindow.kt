@@ -78,23 +78,43 @@ fun WeatherWindow(
                 .padding(vertical = 26.dp, horizontal = 90.dp)
 
         )
-        Column(modifier = Modifier.fillMaxWidth().padding(top = 80.dp)) {
-            Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp),
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 80.dp)) {
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,) {
+                Text(text ="${weatherItem.temp} K", color = Color.White, fontSize = 55.sp, textAlign = TextAlign.Center)
+                Column() {
+                    Text(text ="IKONKA", color = Color.White, fontSize = 20.sp)
+                    Text(text ="PODPIS", color = Color.White, fontSize = 20.sp)
+                }
+            }
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,) {
                 Text(text ="Temperatura odczuwalna", color = Color.White, fontSize = 20.sp)
                 Text(text ="${weatherItem.feelsLike}", color = Color.White, fontSize = 20.sp)
             }
-            Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp),
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,) {
                 Text(text ="Ciśnienie", color = Color.White, fontSize = 20.sp)
                 Text(text ="${weatherItem.pressure} hPa", color = Color.White, fontSize = 20.sp)
             }
-            Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp),
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,) {
                 Text(text ="Wilgotność", color = Color.White, fontSize = 20.sp)
                 Text(text ="${weatherItem.humidity} %", color = Color.White, fontSize = 20.sp)
             }
-            Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp),
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp, vertical = 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,) {
                 Text(text ="Wiatr", color = Color.White, fontSize = 20.sp)
                 Text(text ="${weatherItem.windSpeed} m/s", color = Color.White, fontSize = 20.sp)
