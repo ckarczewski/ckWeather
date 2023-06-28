@@ -1,8 +1,11 @@
 package com.example.ckweather.views.location
 
 import android.app.Application
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.material.Snackbar
 import androidx.lifecycle.AndroidViewModel
 import com.example.ckweather.data.api.GeocodingInterface
 import com.example.ckweather.data.database.weather.WeatherItem
@@ -18,6 +21,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.reflect.Modifier
 
 class SearchViewModel (app: Application): AndroidViewModel(app) {
 //    private val repo = LocationRepository(app.applicationContext)
@@ -33,13 +37,13 @@ class SearchViewModel (app: Application): AndroidViewModel(app) {
             .build()
             .create(GeocodingInterface::class.java)
 
-        val retrofitData = retrofitBuilder.getData(
+        val retrofitItem = retrofitBuilder.getData(
             appid = OPENWEATHER_API_KEY,
             q = text,
             limit = OPENWEATHER_LIMIT
         )
 //      make an asynchronous API request
-        retrofitData.enqueue(object: Callback<List<GeocodingItem>?> {
+        retrofitItem.enqueue(object: Callback<List<GeocodingItem>?> {
             override fun onResponse(
                 call: Call<List<GeocodingItem>?>,
                 response: Response<List<GeocodingItem>?>
@@ -85,5 +89,8 @@ class SearchViewModel (app: Application): AndroidViewModel(app) {
         )
 
         locationVm.insertWeather(locationItem)
+        locationVm.updateWeather(locationItem)
+        locationVm.updateForecast(locationItem)
+        Toast.makeText(context, "Dodano nowe miasto", Toast.LENGTH_SHORT).show()
     }
 }
