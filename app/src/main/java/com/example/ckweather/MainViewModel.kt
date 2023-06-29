@@ -1,6 +1,7 @@
 package com.example.ckweather
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.example.ckweather.data.database.weather.SettingItem
 import com.example.ckweather.data.database.weather.SettingRepository
@@ -27,10 +28,13 @@ class MainViewModel(app: Application): AndroidViewModel(app) {
 
     fun changeTemperatureUnit(unit: helpers.TempUnits){
         val settingFlow = settingRepository.getAll()
+        Log.d("setting flow", "$settingFlow")
         runBlocking(Dispatchers.IO) {
             val setting = settingFlow.first()
+            Log.d("setting", "$setting")
             if(setting.isNotEmpty()){
                 setting[0].temperatureUnit = unit;
+                Log.d("settomg[o]tempunit", "${setting[0]}")
                 settingRepository.update(setting[0])
             }
         }

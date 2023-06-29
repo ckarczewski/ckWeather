@@ -22,11 +22,11 @@ fun ForecastItem(date: String, icon: ImageVector, temperature: String){
         )
         Text(
             text = temperature,
-            color = Color.White
+            color = Color.Black
         )
         Text(
             text = date,
-            color = Color.White
+            color = Color.Black
         )
     }
 }

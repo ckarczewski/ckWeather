@@ -36,8 +36,8 @@ fun LocationScreen(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_baseline_arrow_circle_left_24),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(32.dp),
-                tint = Color(0xFFF5F5F5)
+                    .size(36.dp),
+                tint = Color(0xFF1b1e23)
             )
         }
         Column(
@@ -52,7 +52,7 @@ fun LocationScreen(
             Text(
                 text = "Dodaj nowe miasto",
                 fontSize = 20.sp,
-                color = Color.White,
+                color = Color.Black,
                 modifier = Modifier
                     .padding(
                         vertical = 20.dp
@@ -64,15 +64,15 @@ fun LocationScreen(
                 label = {
                     Text(
                         text = "Zajdź miasto",
-                        color = Color(0xFFFFFFFF),
+                        color = Color.Black,
                         fontSize = 16.sp
                     )
                 },
                 colors = TextFieldDefaults.textFieldColors(
-                    textColor = Color.White,
-                    backgroundColor = Color(0xFF3F3C3C),
-                    focusedIndicatorColor = Color.White,
-                    cursorColor = Color.White
+                    textColor = Color.Black,
+                    backgroundColor = Color.White,
+                    focusedIndicatorColor = Color.Black,
+                    cursorColor = Color.Black
                 ),
                 value = searchText,
                 onValueChange = {

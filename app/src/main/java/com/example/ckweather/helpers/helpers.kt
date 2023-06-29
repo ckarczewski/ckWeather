@@ -77,7 +77,7 @@ object helpers {
                 return (temp - 273.15)
             }
             TempUnits.F ->{
-                return ((9/5)*(temp*273.15)+32)
+                return ((9/5)*(temp-273.15)+32)
             }
             TempUnits.K ->{
                 return temp
@@ -98,6 +98,10 @@ object helpers {
                 return "K"
             }
         }
+    }
+
+    fun setSettingItem(settingItem: SettingItem){
+        this.setting = settingItem
     }
 
 }

@@ -1,7 +1,11 @@
 package com.example.ckweather.views.location
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ckweather.data.api.ForecastInterface
@@ -29,6 +33,7 @@ import kotlin.math.abs
 //TODO: change name from LocationViewModel on SearhLocationViewModel
 class LocationViewModel (app: Application): AndroidViewModel(app) {
     private val weatherRepository = WeatherRepository(app.applicationContext)
+    @SuppressLint("StaticFieldLeak")
     private val context = app.applicationContext
     private val _app = app
 
@@ -151,5 +156,21 @@ class LocationViewModel (app: Application): AndroidViewModel(app) {
 
         }
         return locationFlow
+    }
+
+    fun updateAllWeatherDb() {
+        val locationFlow = weatherRepository.getAll()
+        runBlocking(Dispatchers.IO) {
+            val locationList = locationFlow.first()
+            for(item in locationList){
+                Log.i("sss", item.toString())
+                updateWeather(item)
+                updateForecast(item)
+            }
+
+            Handler(Looper.getMainLooper()).post {
+                Toast.makeText(context,"Zaktualizowano dane pogodowe", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

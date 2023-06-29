@@ -40,7 +40,7 @@ fun SearchLocationLazyColumn(
         )){
             Text(text = "Wyniki:",
                 fontSize = 24.sp,
-                color = Color(0xFFFFFFFF),
+                color = Color.Black,
                 textAlign = TextAlign.Right,
             )
         }

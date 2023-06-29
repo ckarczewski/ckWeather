@@ -32,7 +32,7 @@ fun FavouriteLocationScreen(
     val weathersList = locationViewModel.getWeather().collectAsState(initial = emptyList())
     Box(modifier = Modifier.fillMaxWidth()) {
         IconButton(
-            modifier = Modifier
+            modifier = Modifier.offset(x = 10.dp, y = 10.dp)
             ,onClick = {
                 navController.navigate("home")
             }) {
@@ -40,8 +40,8 @@ fun FavouriteLocationScreen(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_baseline_arrow_circle_left_24),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(32.dp),
-                tint = Color(0xFFF5F5F5)
+                    .size(36.dp),
+                tint = Color(0xFF1b1e23)
             )
         }
         Column(
@@ -51,7 +51,7 @@ fun FavouriteLocationScreen(
             Text(
                 text = "Ulubione miasta",
                 fontSize = 20.sp,
-                color = Color.White,
+                color = Color.Black,
                 modifier = Modifier
                     .padding(
                         vertical = 20.dp

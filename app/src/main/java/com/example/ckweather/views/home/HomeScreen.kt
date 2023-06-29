@@ -65,7 +65,7 @@ fun PagerView(){
                 ,onClick = {
                     scope.launch {
                         if (pagerState.currentPage !=0) {
-                            pagerState.scrollToPage(pagerState.currentPage-1)
+                            pagerState.animateScrollToPage(pagerState.currentPage-1)
                         }
 
                     }
@@ -76,7 +76,7 @@ fun PagerView(){
                     contentDescription = null,
                     modifier = Modifier
                         .size(32.dp),
-                    tint = Color(0xFFF5F5F5)
+                    tint = Color(0xFF1b1e23)
                 )
             }
 //            Text(
@@ -89,7 +89,7 @@ fun PagerView(){
                 ,onClick = {
                     scope.launch {
                         if (pagerState.currentPage < pagerState.pageCount-1){
-                            pagerState.scrollToPage(pagerState.currentPage+1)
+                            pagerState.animateScrollToPage(pagerState.currentPage+1)
                         }
                     }
                 }) {
@@ -98,7 +98,7 @@ fun PagerView(){
                     contentDescription = null,
                     modifier = Modifier
                         .size(32.dp),
-                    tint = Color(0xFFF5F5F5)
+                    tint = Color(0xFF1b1e23)
                 )
             }
         }
