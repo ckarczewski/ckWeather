@@ -1,6 +1,7 @@
 package com.example.ckweather.views.home
 
-import android.icu.text.SimpleDateFormat
+//import android.icu.text.SimpleDateFormat
+import java.text.SimpleDateFormat
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -17,68 +18,80 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ckweather.R
 import com.example.ckweather.data.database.weather.WeatherItem
+import com.example.ckweather.helpers.helpers
+import kotlin.math.roundToInt
 
 @Composable
 fun WeatherWindow(
     weatherItem: WeatherItem
 ){
-    Box(modifier = Modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    vertical = 20.dp,
-                    horizontal = 50.dp
-                ),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ){
-            IconButton(modifier = Modifier
-                ,onClick = {
-//                    navController.navigate("location")
-                }) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.baseline_arrow_back_ios_24),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(32.dp),
-                    tint = Color(0xFFF5F5F5)
-                )
-            }
-//            Text(
-//                text = "Progrnoza Pogody",
-//                color = Color(0xFFF5F5F5),
-//                fontSize = 18.sp
-//            )
-            IconButton(
-                modifier = Modifier
-                ,onClick = {
-//                    navController.navigate("setting")
-                }) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(32.dp),
-                    tint = Color(0xFFF5F5F5)
-                )
-            }
-        }
-    }
+//    Box(modifier = Modifier.fillMaxWidth()) {
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(
+//                    vertical = 20.dp,
+//                    horizontal = 50.dp
+//                ),
+//            horizontalArrangement = Arrangement.SpaceBetween,
+//            verticalAlignment = Alignment.CenterVertically
+//        ){
+//            IconButton(modifier = Modifier
+//                ,onClick = {
+////                    navController.navigate("location")
+//                }) {
+//                Icon(
+//                    imageVector = ImageVector.vectorResource(id = R.drawable.baseline_arrow_back_ios_24),
+//                    contentDescription = null,
+//                    modifier = Modifier
+//                        .size(32.dp),
+//                    tint = Color(0xFFF5F5F5)
+//                )
+//            }
+////            Text(
+////                text = "Progrnoza Pogody",
+////                color = Color(0xFFF5F5F5),
+////                fontSize = 18.sp
+////            )
+//            IconButton(
+//                modifier = Modifier
+//                ,onClick = {
+////                    navController.navigate("setting")
+//                }) {
+//                Icon(
+//                    imageVector = ImageVector.vectorResource(id = R.drawable.baseline_arrow_forward_ios_24),
+//                    contentDescription = null,
+//                    modifier = Modifier
+//                        .size(32.dp),
+//                    tint = Color(0xFFF5F5F5)
+//                )
+//            }
+//        }
+//    }
+    Text(
+        text = weatherItem.name,
+        textAlign = TextAlign.Center,
+        color = Color(0xFFFFFFFF),
+        fontSize = 25.sp,
+        modifier = Modifier
+            .fillMaxWidth(1f)
+            .padding(vertical = 26.dp, horizontal = 90.dp)
+
+    )
     Box(modifier = Modifier
         .fillMaxWidth()
         .fillMaxHeight()){
 
-        Text(
-            text = weatherItem.name,
-            textAlign = TextAlign.Center,
-            color = Color(0xFFFFFFFF),
-            fontSize = 25.sp,
-            modifier = Modifier
-                .fillMaxWidth(1f)
-                .padding(vertical = 26.dp, horizontal = 90.dp)
-
-        )
+//        Text(
+//            text = weatherItem.name,
+//            textAlign = TextAlign.Center,
+//            color = Color(0xFFFFFFFF),
+//            fontSize = 25.sp,
+//            modifier = Modifier
+//                .fillMaxWidth(1f)
+//                .padding(vertical = 26.dp, horizontal = 90.dp)
+//
+//        )
         Column(modifier = Modifier
             .fillMaxWidth()
             .padding(top = 80.dp)) {
@@ -86,20 +99,30 @@ fun WeatherWindow(
                 .fillMaxWidth()
                 .padding(horizontal = 10.dp, vertical = 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,) {
+//               TEMPERATURA
+                val temp = helpers.temperatureCalculation(weatherItem.temp!!).roundToInt().toString()
+                val unit = helpers.getTemperatureUnit()
                 Text(
                     modifier = Modifier.padding(top = 30.dp),
-                    text ="${weatherItem.temp} K",
+                    text ="$temp $unit",
                     color = Color.White, fontSize = 55.sp,
                     textAlign = TextAlign.Center)
                 Column() {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.clear_sky),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(100.dp).padding(end = 20.dp, top = 5.dp),
-                        tint = Color(0xFFF5F5F5)
-                    )
-                    Text(text ="PODPIS", color = Color.White, fontSize = 20.sp,
+//               IKONA I OPIS
+                    weatherItem.weatherID?.let {
+                        helpers.getWeatherIcon(
+                            it
+                        )
+                    }?.let { ImageVector.vectorResource(id = it) }?.let {
+                        Icon(
+                            imageVector = it,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(100.dp).padding(end = 20.dp, top = 5.dp),
+                            tint = Color(0xFFF5F5F5)
+                        )
+                    }
+                    Text(text = weatherItem.weatherID?.let { helpers.getWeatherDescription(it) }.toString(), color = Color.White, fontSize = 20.sp,
                     modifier = Modifier.padding(vertical = 10.dp))
                 }
             }
@@ -107,8 +130,10 @@ fun WeatherWindow(
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,) {
+                val temp = helpers.temperatureCalculation(weatherItem.feelsLike!!).roundToInt().toString()
+                val unit = helpers.getTemperatureUnit()
                 Text(text ="Temperatura odczuwalna", color = Color.White, fontSize = 20.sp)
-                Text(text ="${weatherItem.feelsLike}", color = Color.White, fontSize = 20.sp)
+                Text(text ="$temp $unit", color = Color.White, fontSize = 20.sp)
             }
             Row(modifier = Modifier
                 .fillMaxWidth()
@@ -140,11 +165,13 @@ fun WeatherWindow(
                     if(weatherItem.forecasts.isNotEmpty()){
                         val dateFormat = SimpleDateFormat("dd-MM")
                         repeat(5){ item ->
-                            val icon = ImageVector.vectorResource(id = settingManager.getWeatherIconID(data.forecasts[item].weatherID))
+                            val icon = ImageVector.vectorResource(id = helpers.getWeatherIcon(weatherItem.forecasts[item].weatherID))
+                            val temp = helpers.temperatureCalculation(weatherItem.forecasts[item].temp).roundToInt().toString()
+                            val unit = helpers.getTemperatureUnit()
                             ForecastItem(
                                 date = dateFormat.format(weatherItem.forecasts[item].time),
                                 icon = icon,
-                                temperature = settingManager.kelvinToSelectedType(data.forecasts[item].temp).roundToInt().toString() + "" + settingManager.getTemperatureSymbol()
+                                temperature = temp + "" + unit
                             )
                         }
                     }
