@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [WeatherItem::class, SettingItem::class], version = 2)
+@Database(entities = [WeatherItem::class, SettingItem::class], version = 3)
 abstract class WeatherDatabase: RoomDatabase(){
     abstract fun WeatherDao(): WeatherDao
     abstract fun SettingDao(): SettingDao
