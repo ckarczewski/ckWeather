@@ -1,5 +1,11 @@
 package com.example.ckweather.helpers
 
+import android.annotation.TargetApi
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
+import android.util.Log
 import com.example.ckweather.R
 import com.example.ckweather.data.database.weather.SettingItem
 

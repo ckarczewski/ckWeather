@@ -1,32 +1,32 @@
 package com.example.ckweather.views.home
 
+import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
-import androidx.compose.foundation.gestures.scrollBy
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.ckweather.MainViewModel
+
 import com.example.ckweather.R
 import com.example.ckweather.data.database.weather.WeatherItem
+
 import com.example.ckweather.views.location.LocationViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -34,16 +34,13 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
-//@RequiresApi(Build.VERSION_CODES.N)
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun HomeScreen(
     navController: NavHostController
 ){
-    Log.d("dupa","dupa2")
-
-
+    Log.d("Screen","HomeScreen")
     PagerView()
-//    WeatherWindow(weatherItem = )
     BottomMenu(navController = navController)
 }
 
@@ -79,11 +76,7 @@ fun PagerView(){
                     tint = Color(0xFF1b1e23)
                 )
             }
-//            Text(
-//                text = "Progrnoza Pogody",
-//                color = Color(0xFFF5F5F5),
-//                fontSize = 18.sp
-//            )
+
             IconButton(
                 modifier = Modifier
                 ,onClick = {
@@ -111,11 +104,13 @@ fun PagerView(){
 @Composable
 fun PagerContent(pagerState: PagerState){
     val locationViewModel: LocationViewModel = viewModel()
-    val mainViewModel: MainViewModel = viewModel()
-
-    val settingData = mainViewModel.getSetting().collectAsState(initial = emptyList())
     val weatherData = locationViewModel.getWeather().collectAsState(initial = emptyList())
     val weathersList: MutableList<WeatherItem> = mutableListOf()
+
+    if(!locationViewModel.isOnline()){
+        Spacer(modifier = Modifier.padding(top = 200.dp))
+        NoInternetConnection()
+    }
 
     if(weatherData.value.isNotEmpty()){
         weathersList += weatherData.value
@@ -128,7 +123,26 @@ fun PagerContent(pagerState: PagerState){
         }
     }
 }
-
+@Composable
+fun NoInternetConnection(){
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom
+    ){
+        Box(modifier = Modifier.padding(bottom = 40.dp)){
+            Text(
+                text = "Brak dostępu do internetu, dane nie są aktualne",
+                textAlign = TextAlign.Center,
+                color = Color.Red,
+                fontSize = 24.sp,
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .fillMaxWidth()
+                    .padding(40.dp)
+            )
+        }
+    }
+}
 @Composable
 fun BottomMenu(
     navController: NavHostController

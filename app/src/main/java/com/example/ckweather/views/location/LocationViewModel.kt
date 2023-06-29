@@ -1,7 +1,12 @@
 package com.example.ckweather.views.location
 
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -13,6 +18,7 @@ import com.example.ckweather.data.api.WeatherInterface
 import com.example.ckweather.data.database.weather.Forecast
 import com.example.ckweather.data.database.weather.WeatherItem
 import com.example.ckweather.data.database.weather.WeatherRepository
+import com.example.ckweather.helpers.helpers
 import com.example.ckweather.models.forecast.ForecastItem
 import com.example.ckweather.models.weather.Weather
 import com.example.ckweather.util.OPENWEATHER_API_KEY
@@ -130,6 +136,28 @@ class LocationViewModel (app: Application): AndroidViewModel(app) {
 
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
+    fun isOnline(): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (connectivityManager != null) {
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                    return true
+                }
+            }
+        }
+        return false
+    }
     fun getWeather(): Flow<List<WeatherItem>> {
 
         val locationFlow = weatherRepository.getAll()
