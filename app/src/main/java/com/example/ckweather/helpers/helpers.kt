@@ -1,9 +1,11 @@
 package com.example.ckweather.helpers
 
 import com.example.ckweather.R
+import com.example.ckweather.data.database.weather.SettingItem
 
 object helpers {
     enum class TempUnits {C,F,K}
+    private var setting: SettingItem? = null
 
     fun getWeatherIcon(id: Int): Int {
         val idStr = id.toString()[0].toString()
@@ -69,12 +71,33 @@ object helpers {
         }
     }
 
-    fun temperatureCalculation(temp: Double){
+    fun temperatureCalculation(temp: Double):Double{
+        when(setting?.temperatureUnit){
+            TempUnits.C, null ->{
+                return (temp - 273.15)
+            }
+            TempUnits.F ->{
+                return ((9/5)*(temp*273.15)+32)
+            }
+            TempUnits.K ->{
+                return temp
+            }
+        }
 
     }
 
-    fun getTemperatureUnit(){
-
+    fun getTemperatureUnit():String{
+        when (setting?.temperatureUnit){
+            TempUnits.C, null ->{
+                return "°C"
+            }
+            TempUnits.F ->{
+                return "°F"
+            }
+            TempUnits.K ->{
+                return "K"
+            }
+        }
     }
 
 }
