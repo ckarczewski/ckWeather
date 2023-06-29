@@ -29,49 +29,6 @@ import kotlin.math.roundToInt
 fun WeatherWindow(
     weatherItem: WeatherItem
 ){
-//    Box(modifier = Modifier.fillMaxWidth()) {
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(
-//                    vertical = 20.dp,
-//                    horizontal = 50.dp
-//                ),
-//            horizontalArrangement = Arrangement.SpaceBetween,
-//            verticalAlignment = Alignment.CenterVertically
-//        ){
-//            IconButton(modifier = Modifier
-//                ,onClick = {
-////                    navController.navigate("location")
-//                }) {
-//                Icon(
-//                    imageVector = ImageVector.vectorResource(id = R.drawable.baseline_arrow_back_ios_24),
-//                    contentDescription = null,
-//                    modifier = Modifier
-//                        .size(32.dp),
-//                    tint = Color(0xFFF5F5F5)
-//                )
-//            }
-////            Text(
-////                text = "Progrnoza Pogody",
-////                color = Color(0xFFF5F5F5),
-////                fontSize = 18.sp
-////            )
-//            IconButton(
-//                modifier = Modifier
-//                ,onClick = {
-////                    navController.navigate("setting")
-//                }) {
-//                Icon(
-//                    imageVector = ImageVector.vectorResource(id = R.drawable.baseline_arrow_forward_ios_24),
-//                    contentDescription = null,
-//                    modifier = Modifier
-//                        .size(32.dp),
-//                    tint = Color(0xFFF5F5F5)
-//                )
-//            }
-//        }
-//    }
     Text(
         text = weatherItem.name,
         textAlign = TextAlign.Center,
@@ -86,16 +43,7 @@ fun WeatherWindow(
         .fillMaxWidth()
         .fillMaxHeight()){
 
-//        Text(
-//            text = weatherItem.name,
-//            textAlign = TextAlign.Center,
-//            color = Color(0xFFFFFFFF),
-//            fontSize = 25.sp,
-//            modifier = Modifier
-//                .fillMaxWidth(1f)
-//                .padding(vertical = 26.dp, horizontal = 90.dp)
-//
-//        )
+
         Column(modifier = Modifier
             .fillMaxWidth()
             .padding(top = 80.dp)) {

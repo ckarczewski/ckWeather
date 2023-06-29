@@ -12,10 +12,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.ckweather.data.database.weather.WeatherItem
 import com.example.ckweather.models.geocoding.GeocodingItem
 import com.example.ckweather.views.location.LocationViewModel
-import com.example.ckweather.views.location.SearchViewModel
 
 @Composable
 fun SearchLocationItem(
@@ -23,7 +21,6 @@ fun SearchLocationItem(
     clearInputText: (()->Unit)? = null
 ){
     val searchViewModel: SearchViewModel = viewModel()
-//    val locationViewModel: LocationViewModel = viewModel()
     val geocodingList = searchViewModel.geocodingList.collectAsState(initial = emptyList())
     SearchLocationLazyColumn(geocodingList = geocodingList.value, locationViewModel, clearInputText)
 

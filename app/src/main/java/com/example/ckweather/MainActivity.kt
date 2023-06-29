@@ -45,8 +45,7 @@ class MainActivity : ComponentActivity() {
                     }
                     val navController = rememberNavController()
                     NavGraph(navController = navController)
-//                    Greeting("Android")
-//                    val setting = mainVM.getSe
+
                     val setting = mainViewModel.getSetting().collectAsState(initial = emptyList())
                     if (setting.value.isNotEmpty()){
                         helpers.setSettingItem(setting.value[0])

@@ -12,8 +12,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.NavHost
 import com.example.ckweather.views.location.favouriteLocation.FavouriteLocationScreen
 
-//TODO: Ogarnąć te warningi lol
-//@RequiresApi(Build.VERSION_CODES.N)
+
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun NavGraph(navController: NavHostController) {
     NavHost(navController = navController,

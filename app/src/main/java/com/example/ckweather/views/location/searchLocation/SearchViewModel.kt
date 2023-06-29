@@ -1,11 +1,9 @@
-package com.example.ckweather.views.location
+package com.example.ckweather.views.location.searchLocation
 
+import android.annotation.SuppressLint
 import android.app.Application
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.widget.Toast
-import androidx.compose.material.Snackbar
 import androidx.lifecycle.AndroidViewModel
 import com.example.ckweather.data.api.GeocodingInterface
 import com.example.ckweather.data.database.weather.WeatherItem
@@ -13,6 +11,7 @@ import com.example.ckweather.models.geocoding.GeocodingItem
 import com.example.ckweather.util.OPENWEATHER_API_KEY
 import com.example.ckweather.util.OPENWEATHER_API_ROOT
 import com.example.ckweather.util.OPENWEATHER_LIMIT
+import com.example.ckweather.views.location.LocationViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -21,10 +20,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.reflect.Modifier
 
 class SearchViewModel (app: Application): AndroidViewModel(app) {
-//    private val repo = LocationRepository(app.applicationContext)
+
+    @SuppressLint("StaticFieldLeak")
     private val context = app.applicationContext
     private var toastWasShow = false;
     private val _geocodingList = MutableStateFlow<List<GeocodingItem>>(emptyList())

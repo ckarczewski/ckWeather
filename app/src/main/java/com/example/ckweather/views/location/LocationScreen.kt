@@ -18,6 +18,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.ckweather.R
 import com.example.ckweather.views.location.searchLocation.SearchLocationItem
+import com.example.ckweather.views.location.searchLocation.SearchViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -91,6 +92,5 @@ fun LocationScreen(
             }
         }
     }
-    Log.d("location screen","dupa2")
-//TODO: change name from LocationScreen on SearhLocationScreen
+    Log.d("Screen","Location Screen")
 }

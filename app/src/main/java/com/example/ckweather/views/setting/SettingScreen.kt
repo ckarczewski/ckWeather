@@ -22,7 +22,7 @@ import com.example.ckweather.helpers.helpers
 import com.example.ckweather.views.location.LocationViewModel
 
 
-//@RequiresApi(Build.VERSION_CODES.N)
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun SettingScreen (
     navController: NavHostController

@@ -36,7 +36,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.math.abs
 
-//TODO: change name from LocationViewModel on SearhLocationViewModel
+
 class LocationViewModel (app: Application): AndroidViewModel(app) {
     private val weatherRepository = WeatherRepository(app.applicationContext)
     @SuppressLint("StaticFieldLeak")
@@ -189,16 +189,23 @@ class LocationViewModel (app: Application): AndroidViewModel(app) {
     fun updateAllWeatherDb() {
         val locationFlow = weatherRepository.getAll()
         runBlocking(Dispatchers.IO) {
-            val locationList = locationFlow.first()
-            for(item in locationList){
-                Log.i("sss", item.toString())
-                updateWeather(item)
-                updateForecast(item)
+            if (isOnline()){
+                val locationList = locationFlow.first()
+                for(item in locationList){
+                    Log.i("Update item", item.toString())
+                    updateWeather(item)
+                    updateForecast(item)
+                }
+
+                Handler(Looper.getMainLooper()).post {
+                    Toast.makeText(context,"Zaktualizowano dane pogodowe", Toast.LENGTH_SHORT).show()
+                }
+            } else{
+                Handler(Looper.getMainLooper()).post {
+                    Toast.makeText(context,"Brak dostępu do internetu", Toast.LENGTH_SHORT).show()
+                }
             }
 
-            Handler(Looper.getMainLooper()).post {
-                Toast.makeText(context,"Zaktualizowano dane pogodowe", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 }

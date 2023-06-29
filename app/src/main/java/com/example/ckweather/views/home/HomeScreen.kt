@@ -133,7 +133,7 @@ fun NoInternetConnection(){
             Text(
                 text = "Brak dostępu do internetu, dane nie są aktualne",
                 textAlign = TextAlign.Center,
-                color = Color.Red,
+                color = Color.Black,
                 fontSize = 24.sp,
                 modifier = Modifier
                     .align(Alignment.Center)
