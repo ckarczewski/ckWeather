@@ -71,13 +71,13 @@ fun WeatherWindow(
                             imageVector = it,
                             contentDescription = null,
                             modifier = Modifier
-                                .size(100.dp)
-                                .padding(end = 20.dp, top = 5.dp),
+                                .size(120.dp)
+                                .padding(end = 10.dp, top = 5.dp),
                             tint = Color(0xFF1b1e23)
                         )
                     }
                     Text(text = weatherItem.weatherID?.let { helpers.getWeatherDescription(it) }.toString(), color = Color.Black, fontSize = 20.sp,
-                    modifier = Modifier.padding(vertical = 10.dp))
+                    modifier = Modifier.padding(vertical = 20.dp))
                 }
             }
 

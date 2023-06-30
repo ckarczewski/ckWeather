@@ -71,7 +71,7 @@ fun LocationScreen(
                 },
                 colors = TextFieldDefaults.textFieldColors(
                     textColor = Color.Black,
-                    backgroundColor = Color.White,
+                    backgroundColor = Color(0x978ED1FC),
                     focusedIndicatorColor = Color.Black,
                     cursorColor = Color.Black
                 ),

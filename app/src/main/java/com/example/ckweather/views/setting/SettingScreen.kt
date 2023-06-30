@@ -55,64 +55,67 @@ fun SettingScreen (
                 color = Color.Black,
                 fontSize = 18.sp
             )
+            Box(){
+                OutlinedButton(
+                    border = BorderStroke(2.dp, Color.White),
+                    shape = RoundedCornerShape(25.dp),
+                    onClick = { expand = true },
+                    modifier = Modifier
+                        .padding(horizontal = 20.dp)
+                ) {
 
-            OutlinedButton(
-                border = BorderStroke(2.dp, Color.White),
-                shape = RoundedCornerShape(25.dp),
-                onClick = { expand = true },
-                modifier = Modifier
-                    .padding(horizontal = 20.dp)
-            ) {
-
-                Log.i("test", tempUnit)
+                    Log.i("test", tempUnit)
 
 
-                when(tempUnit){
-                    "°C" -> {
-                        Text(
-                            text = "°C",
-                            fontSize = 18.sp,
-                            color = Color.Black
-                        )
-                    }
-
-                    "K" -> {
-                        Text(
-                            text = "K",
-                            fontSize = 18.sp,
-                            color = Color.Black
-                        )
-                    }
-
-                    "°F" -> {
-                        Text(
-                            text = "°F",
-                            fontSize = 18.sp,
-                            color = Color.Black
-                        )
-                    }
-                }
-
-            }
-
-            DropdownMenu(
-                expanded = expand,
-                onDismissRequest = { expand = false }
-            ) {
-                suggestions.forEach { label ->
-                    DropdownMenuItem(onClick = {
-                        mainViewModel.changeTemperatureUnit(label)
-                        tempUnit = when(label){
-                            helpers.TempUnits.C -> "°C"
-                            helpers.TempUnits.K -> "K"
-                            helpers.TempUnits.F -> "°F"
+                    when(tempUnit){
+                        "°C" -> {
+                            Text(
+                                text = "°C",
+                                fontSize = 18.sp,
+                                color = Color.Black
+                            )
                         }
-                        expand = false
-                    }) {
-                        Text(text = label.toString())
+
+                        "K" -> {
+                            Text(
+                                text = "K",
+                                fontSize = 18.sp,
+                                color = Color.Black
+                            )
+                        }
+
+                        "°F" -> {
+                            Text(
+                                text = "°F",
+                                fontSize = 18.sp,
+                                color = Color.Black
+                            )
+                        }
+                    }
+
+                }
+
+                DropdownMenu(
+                    expanded = expand,
+                    onDismissRequest = { expand = false }
+                ) {
+                    suggestions.forEach { label ->
+                        DropdownMenuItem(onClick = {
+                            mainViewModel.changeTemperatureUnit(label)
+                            tempUnit = when(label){
+                                helpers.TempUnits.C -> "°C"
+                                helpers.TempUnits.K -> "K"
+                                helpers.TempUnits.F -> "°F"
+                            }
+                            expand = false
+                        }) {
+                            Text(text = label.toString())
+                        }
                     }
                 }
             }
+
+
         }
         Row() {
             OutlinedButton(
